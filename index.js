@@ -9,9 +9,12 @@ dbConnect();
 let app = express();
 app.use(cookieParser());
 app.use(cors({
-    origin:"*",
-    methods:['GET','POST','DELETE','PUT','PATCH']
-}))
+    origin:"http://localhost:3000",
+    methods:['GET','POST','DELETE','PUT','PATCH'],
+    credentials:true
+})) 
+
+app.options('*',cors())
 
 let port = process.env.PORT || 8080;
 app.use(express.static('./views'))

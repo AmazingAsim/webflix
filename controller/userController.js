@@ -11,10 +11,10 @@ let getusers = async(req,res)=>{
 }
 
 let signUp =async(req,res)=>{
-    try {
+    try { 
         let user = req.body;
         let result = await userRepo.signUp(user);
-        res.send({message:"account is created",res:result});
+        res.status(201).send({message:"account is created",res:result});
         
     } catch (error) {
         console.log(error);
@@ -26,14 +26,13 @@ let login = async(req,res)=>{
     
         let user = req.body;
         console.log(user);
-        let result = userRepo.login(user);
+        let result = await userRepo.login(user);
         if(result === 'invalid email' || result ==='invalid password'){
             res.send({message:'invalid password or email',res:result,validLogin:false})
         }
 
-        res.cookie('jwt',result);
-        res.send({message:"Login successfull",validLogin:true,email:user.user_email})
-
+        res.cookie('jwt',result,{httpOnly:true,secure:false});
+        res.status(201).send({message:"Login successfull",validLogin:true,email:user.user_email,jwt:result})
 }
 
 let currentUser = async(req,res)=>{

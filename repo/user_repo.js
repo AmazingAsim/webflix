@@ -36,6 +36,7 @@ let login = async(user)=>{
 
     let payload = {id:result._id,email:result.user_email};
     let token = await jwt.sign(payload,'watcher');
+    console.log(token)
     return token;
 }
 
