@@ -23,7 +23,7 @@ let showUser = ()=>{
 
 let login = async(user)=>{
     let result = await userModel.findOne({user_email:user.user_email});
-
+    console.log(result);
     if(result==null){
         return 'invalid email'
     }
@@ -37,11 +37,12 @@ let login = async(user)=>{
     let payload = {id:result._id,email:result.user_email};
     let token = await jwt.sign(payload,'watcher');
     console.log(token)
-    return token;
+    return {jwt:token,id:result._id};
 }
 
-let currentUser = (email)=>{
-    return userModel.findOne({user_email:email})
+let currentUser = async (id)=>{
+    
+    return userModel.findOne({_id:id})
 }
 
 let addProfile = (id,profileImage)=>{

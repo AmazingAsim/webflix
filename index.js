@@ -14,7 +14,7 @@ app.use(cors({
     credentials:true
 })) 
 
-app.options('*',cors())
+app.options('http://localhost:3000',cors())
 
 let port = process.env.PORT || 8080;
 app.use(express.static('./views'))

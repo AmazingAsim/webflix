@@ -32,13 +32,15 @@ let login = async(req,res)=>{
         }
 
         res.cookie('jwt',result,{httpOnly:true,secure:false});
-        res.status(201).send({message:"Login successfull",validLogin:true,email:user.user_email,jwt:result})
+        res.status(201).send({message:"Login successfull",validLogin:true,email:user.user_email,jwt:result.jwt,id:result.id})
 }
 
 let currentUser = async(req,res)=>{
     try {
-    let email = req.params.email;
-    let result = await userRepo.currentUser(email);
+    let id = req.params.id;
+
+    let result = await userRepo.currentUser(id);
+    console.log(result,id)
     if(result != null){
         res.send(result)
     }
