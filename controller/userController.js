@@ -15,7 +15,6 @@ let signUp =async(req,res)=>{
         let user = req.body;
         let result = await userRepo.signUp(user);
         res.status(201).send({message:"account is created",res:result});
-        
     } catch (error) {
         console.log(error);
         res.send({message:"someting went wrong",res:error});
@@ -31,7 +30,7 @@ let login = async(req,res)=>{
             res.send({message:'invalid password or email',res:result,validLogin:false})
         }
 
-        res.cookie('jwt',result,{httpOnly:true,secure:false});
+        res.cookie('jwt',result.jwt,{httpOnly:true,secure:false});
         res.status(201).send({message:"Login successfull",validLogin:true,email:user.user_email,jwt:result.jwt,id:result.id})
 }
 
