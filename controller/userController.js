@@ -1,6 +1,6 @@
 let userRepo = require('../repo/user_repo');
 let path = require('path');
-
+let fs = require('fs')
 let getusers = async(req,res)=>{
     try {
         let result = await userRepo.showUser();
@@ -12,6 +12,7 @@ let getusers = async(req,res)=>{
 
 let signUp =async(req,res)=>{
     try { 
+
         let user = req.body;
         let result = await userRepo.signUp(user);
         res.status(201).send({message:"account is created",res:result});
@@ -50,11 +51,16 @@ let currentUser = async(req,res)=>{
 }
 
 let addProfile = async(req,res)=>{
+    let user = await userRepo.currentUser(req.body._id);
+    if(user.user_profile){
+        fs.unlinkSync(path.join(__dirname,'..','profiles',user.user_profile))
+    }
+    console.log(req.body)
     if(!req.file){
         res.send({message:"no file is selected",flag:false});
     }
     else{
-        let fileName = req.body._id+ path.extname(req.file.originalname);
+        let fileName = req.file.originalname
         let result = await userRepo.addProfile(req.body._id,fileName);
         res.send({message:'profile image saved',flag:true,res:result})
     }

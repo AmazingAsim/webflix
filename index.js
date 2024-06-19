@@ -5,8 +5,11 @@ let userRouter = require('./router/user_routes')
 let cors = require('cors');
 let cookieParser = require('cookie-parser');
 let errorHandler = require('./middleware/errorhandler')
+// const formData = require('express-form-data');
 dbConnect();
 let app = express();
+// app.use(formData.parse());
+app.get('/',(req,res)=>{res.send('welcome to webflix backend')})
 app.use(cookieParser());
 app.use(cors({
     origin:"http://localhost:3000",

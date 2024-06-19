@@ -6,9 +6,10 @@ let storage = multer.diskStorage({
         cb(null,'./profiles')
     },
     filename:function(req,file,cb){
-        cb(null,req.body._id+path.extname(file.originalname))
+        console.log(`multer here ::: ${JSON.stringify(req.body)}`)
+        cb(null,file.originalname)
     }
-})
+});
 
 let upload = multer({storage:storage});
 
