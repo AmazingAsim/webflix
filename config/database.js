@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 
-let local_db = process.env.LOCAL_URL ||  `mongodb://localhost:27017/webflix`;
+let local_db = process.env.REMOTE_URL ||  `mongodb://localhost:27017/webflix`;
 
 let dbConnect = function(){ 
   return mongoose.connect(local_db)
