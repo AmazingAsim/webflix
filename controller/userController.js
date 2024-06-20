@@ -25,8 +25,9 @@ let signUp =async(req,res)=>{
 let login = async(req,res)=>{
     
         let user = req.body;
-        console.log(user);
+        console.time('login')
         let result = await userRepo.login(user);
+        console.timeEnd('login')
         if(result === 'invalid email' || result ==='invalid password'){
             res.send({message:'invalid password or email',res:result,validLogin:false})
         }
@@ -36,11 +37,12 @@ let login = async(req,res)=>{
 }
 
 let currentUser = async(req,res)=>{
+    console.time('currentuser')
     try {
     let id = req.params.id;
 
     let result = await userRepo.currentUser(id);
-    console.log(result,id)
+    console.timeEnd('currentuser')
     if(result != null){
         res.send(result)
     }
@@ -55,7 +57,7 @@ let addProfile = async(req,res)=>{
     if(user.user_profile){
         fs.unlinkSync(path.join(__dirname,'..','profiles',user.user_profile))
     }
-    console.log(req.body)
+   
     if(!req.file){
         res.send({message:"no file is selected",flag:false});
     }

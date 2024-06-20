@@ -23,7 +23,6 @@ let showUser = ()=>{
 
 let login = async(user)=>{
     let result = await userModel.findOne({user_email:user.user_email});
-    console.log(result);
     if(result==null){
         return 'invalid email'
     }

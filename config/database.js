@@ -3,9 +3,9 @@ let mongoose = require('mongoose');
 let local_db = process.env.REMOTE_URL;
 
 const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  poolSize: 10
+  maxPoolSize:50,
+  wtimeoutMS:2500,
+  useNewUrlParser:true
 }
 
 
