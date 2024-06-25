@@ -12,12 +12,12 @@ let app = express();
 app.get('/',(req,res)=>{res.send('welcome to webflix backend')})
 app.use(cookieParser());
 app.use(cors({
-    origin:"http://localhost:3000",
+    origin:"https://webflix-omega.vercel.app",
     methods:['GET','POST','DELETE','PUT','PATCH'],
     credentials:true
 })) 
 
-app.options('http://localhost:3000',cors())
+app.options('https://webflix-omega.vercel.app',cors())
 
 let port = process.env.PORT || 8080;
 app.use(express.static('./views'))
